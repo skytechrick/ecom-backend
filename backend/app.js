@@ -5,12 +5,19 @@ import order from './routes/orderRoutes.js';
 import errorHandleMiddleware from './middleware/error.js';
 import cookieParser from 'cookie-parser';
 import './utils/sentEmail.js';
+import cors from 'cors';
 
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
+// allow from all the frontend web no block
+app.use(cors({
+    origin: ['*'],
+    // origin: ['http://localhost:3000', 'http://192.168.0.12:3000'],
+    credentials: true
+}));
 
 app.use("/api/v1", product); //we have to give only starting path here, because we have given the path in productRoutes.js
 app.use("/api/v1", user);
